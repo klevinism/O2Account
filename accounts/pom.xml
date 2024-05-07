@@ -8,11 +8,13 @@
         <version>3.2.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.o2dent.lib</groupId>
     <artifactId>accounts</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>accounts</name>
     <description>accounts</description>
+
     <properties>
         <java.version>17</java.version>
     </properties>

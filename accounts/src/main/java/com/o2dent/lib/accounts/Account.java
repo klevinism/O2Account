@@ -1,15 +1,19 @@
 package com.o2dent.lib.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -64,14 +68,13 @@ public class Account implements Serializable {
 
     private boolean isAccount;
 
-//    @JsonIgnore
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-//    @JoinTable(name = "authority",
-//            joinColumns = @JoinColumn(name = "accountid"),
-//            inverseJoinColumns = @JoinColumn(name = "roleid"))
-//    private List<Object> roles  = new ArrayList<>();
-
+    @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinTable(name = "authority",
+            joinColumns = @JoinColumn(name = "accountid"),
+            inverseJoinColumns = @JoinColumn(name = "roleid"))
+    private List<Role> roles  = new ArrayList<>();
     private boolean enabled;
 
     private boolean active;
@@ -86,10 +89,10 @@ public class Account implements Serializable {
      * @param active boolean
      */
     public Account(@NotBlank(message = "Username is mandatory") String username,
-                   @NotBlank(message = "Password is mandatory") String password, List<String> roles, boolean enabled, boolean active) {
+                   @NotBlank(message = "Password is mandatory") String password, List<Role> roles, boolean enabled, boolean active) {
         this.username = username;
         this.password = password;
-//        this.roles = roles;
+        this.roles = roles;
         this.enabled = enabled;
         this.active = active;
     }
@@ -110,7 +113,7 @@ public class Account implements Serializable {
         this.country = account.country;
         this.email = account.email;
         this.gender = account.gender;
-//        this.roles = account.roles;
+        this.roles = account.roles;
         this.image = account.image;
         this.phone = account.phone;
         this.enabled = account.enabled;
@@ -367,6 +370,14 @@ public class Account implements Serializable {
         this.isAccount = isAccount;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "Account [id=" + id + ", name=" + name + ", surname=" + surname + ", age=" + age + ", gender=" + gender
@@ -397,6 +408,7 @@ public class Account implements Serializable {
         if (!Objects.equals(birthday, account.birthday)) return false;
         if (!Objects.equals(image, account.image)) return false;
         if (!Objects.equals(address, account.address)) return false;
+        if (!Objects.equals(roles, account.roles)) return false;
         if (!Objects.equals(city, account.city)) return false;
         return Objects.equals(country, account.country);
     }
@@ -417,6 +429,7 @@ public class Account implements Serializable {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (roles != null ? roles.hashCode() : 0);
         result = 31 * result + (isAccount ? 1 : 0);
         result = 31 * result + (enabled ? 1 : 0);
         result = 31 * result + (active ? 1 : 0);
