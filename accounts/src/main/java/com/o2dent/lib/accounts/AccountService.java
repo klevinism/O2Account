@@ -54,4 +54,13 @@ public class AccountService {
             return this.accountRepository.findByUsernameOrEmail(username, username);
         }
     }
+
+    /**
+     *
+     * @param account Account
+     * @return Account the new user created
+     */
+    public Account createPlain(Account account) {
+        return accountRepository.saveAndFlush(account);
+    }
 }
