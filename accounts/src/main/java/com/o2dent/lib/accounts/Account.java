@@ -13,10 +13,7 @@ import org.springframework.lang.Nullable;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author delimeta
@@ -28,6 +25,11 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACC_SEQ")
     @SequenceGenerator(sequenceName = "account_seq", allocationSize = 1, name = "ACC_SEQ")
     private Long id;
+
+    @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(mappedBy = "accounts", cascade = CascadeType.REFRESH)
+    private Set<Business> businesses = new HashSet<Business>();
 
     @NotNull(message = "{alert.fieldEmpty}")
     @NotEmpty(message = "{alert.fieldEmpty}")
@@ -116,6 +118,7 @@ public class Account implements Serializable {
         this.roles = account.roles;
         this.image = account.image;
         this.phone = account.phone;
+        this.businesses = account.businesses;
         this.enabled = account.enabled;
         this.active = account.active;
         this.isAccount = account.isAccount;
@@ -362,6 +365,20 @@ public class Account implements Serializable {
         this.country = country;
     }
 
+    /**
+     * @return
+     */
+    public Set<Business> getBusinesses() {
+        return businesses;
+    }
+
+    /**
+     * @param businesses
+     */
+    public void setBusinesses(Set<Business> businesses) {
+        this.businesses = businesses;
+    }
+
     public boolean isAccount() {
         return isAccount;
     }
@@ -422,7 +439,7 @@ public class Account implements Serializable {
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + username.hashCode();
+        result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
         result = 31 * result + (image != null ? image.hashCode() : 0);

@@ -11,7 +11,7 @@
 
     <groupId>com.o2dent.lib</groupId>
     <artifactId>accounts</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>accounts</name>
     <description>accounts</description>
 
