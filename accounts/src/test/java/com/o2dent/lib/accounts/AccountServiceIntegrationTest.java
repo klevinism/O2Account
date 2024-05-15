@@ -1,30 +1,28 @@
 package com.o2dent.lib.accounts;
 
+import com.o2dent.lib.accounts.entity.Account;
+import com.o2dent.lib.accounts.entity.Role;
+import com.o2dent.lib.accounts.persistance.AccountService;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ContextConfiguration(classes = {Configurations.class,AccountRepository.class})
+@ContextConfiguration(classes = {Configurations.class, AccountService.class})
 @DataJpaTest
 @EntityScan
-public class AccountRepositoryIntegrationTest {
+public class AccountServiceIntegrationTest {
     @Autowired
-    AccountRepository accountRepository;
+    AccountService accountService;
 
     @Autowired
     TestEntityManager entityManager;
@@ -32,6 +30,7 @@ public class AccountRepositoryIntegrationTest {
     private Account createDefaultAccount(){
         Account account = new Account();
         account.setName("TestName");
+        account.setSurname("TestLastName");
         account.setAccount(true);
         account.setActive(true);
         account.setEmail("test@test.com");
@@ -41,22 +40,20 @@ public class AccountRepositoryIntegrationTest {
         List<Role> roles = new ArrayList<>();
         roles.add(adminRole);
         account.setRoles(List.of());
-        return account;
+        return accountService.createPlain(account);
     }
 
     @Test
     void givenNewAccount_whenSave_thenSuccess() {
         Account account = createDefaultAccount();
-        Account insertedAccount = accountRepository.save(account);
-        Account foundAccount = entityManager.find(Account.class, insertedAccount.getId());
-        assertThat(foundAccount).isEqualTo(account);
+        Optional<Account> foundAccount = accountService.findById(account.getId());
+        assertThat(foundAccount.get()).isEqualTo(account);
     }
 
     @Test
     void givenNewAccount_whenSave_thenRole_isAdmin() {
         Account account = createDefaultAccount();
-        Account insertedAccount = accountRepository.save(account);
-        Account foundAccount = entityManager.find(Account.class, insertedAccount.getId());
-        assertEquals(foundAccount.getRoles(),insertedAccount.getRoles());
+        Optional<Account> foundAccount = accountService.findById(account.getId());
+        assertEquals(foundAccount.get().getRoles(), account.getRoles());
     }
 }

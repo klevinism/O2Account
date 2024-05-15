@@ -1,11 +1,12 @@
-package com.o2dent.lib.accounts;
+package com.o2dent.lib.accounts.persistance;
 
-import org.springframework.context.annotation.ComponentScan;
+import com.o2dent.lib.accounts.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -45,7 +46,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
      * @param name
      * @return
      */
-//    public List<Account> findAllByActiveAndEnabledAndRoles_Name(boolean b, boolean c, String name);
+    public List<Account> findAllByActiveAndEnabledAndRoles_Name(boolean b, boolean c, String name);
 
     /**
      * @param b
@@ -78,7 +79,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
      * @param currentBusinessId
      * @return
      */
-//    public Optional<Account> findByIdAndBusinesses_Id(Long id, long currentBusinessId);
+    public Optional<Account> findByIdAndBusinesses_Id(Long id, long currentBusinessId);
 
     /**
      * @param currentBusinessId
@@ -87,8 +88,8 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
      * @param name
      * @return
      */
-//    public List<Account> findAllByBusinesses_IdAndActiveAndEnabledAndRoles_Name(Long currentBusinessId, boolean enabled,
-//                                                                                boolean active, String name);
+    public List<Account> findAllByBusinesses_IdAndActiveAndEnabledAndRoles_Name(Long currentBusinessId, boolean enabled,
+                                                                                boolean active, String name);
 
 
     /**
@@ -109,8 +110,8 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
      * @param roles
      * @return
      */
-//    public List<Account> findAllByBusinesses_IdAndActiveAndEnabledAndRoles_NameIn(Long id, boolean b, boolean c,
-//                                                                                  List<String> roles);
+    public List<Account> findAllByBusinesses_IdAndActiveAndEnabledAndRoles_NameIn(Long id, boolean b, boolean c,
+                                                                                  List<String> roles);
 
     /**
      * @param phone Long phone number

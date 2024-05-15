@@ -1,4 +1,4 @@
-package com.o2dent.lib.accounts.helpers;
+package com.o2dent.lib.accounts.helpers.validators;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

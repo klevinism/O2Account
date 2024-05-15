@@ -1,4 +1,4 @@
-package com.o2dent.lib.accounts;
+package com.o2dent.lib.accounts.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -28,7 +28,7 @@ public class Account implements Serializable {
 
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(mappedBy = "accounts", cascade = CascadeType.REFRESH)
+    @ManyToMany(mappedBy = "accounts", cascade = CascadeType.ALL)
     private Set<Business> businesses = new HashSet<Business>();
 
     @NotNull(message = "{alert.fieldEmpty}")
@@ -72,7 +72,7 @@ public class Account implements Serializable {
 
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "authority",
             joinColumns = @JoinColumn(name = "accountid"),
             inverseJoinColumns = @JoinColumn(name = "roleid"))

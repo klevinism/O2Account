@@ -1,4 +1,4 @@
-package com.o2dent.lib.accounts;
+package com.o2dent.lib.accounts.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -15,7 +15,7 @@ public class Role implements Serializable {
     private Long id;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToMany(mappedBy = "roles", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
     private List<Account> accounts;
 
     private String name;

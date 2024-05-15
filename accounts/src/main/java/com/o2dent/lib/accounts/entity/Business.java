@@ -1,9 +1,10 @@
-package com.o2dent.lib.accounts;
+package com.o2dent.lib.accounts.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
-import com.o2dent.lib.accounts.helpers.ValidURL;
+import com.o2dent.lib.accounts.helpers.validators.ValidURL;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.annotations.LazyCollection;
@@ -33,7 +34,7 @@ public class Business implements Serializable{
     private String businessUrl;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "business_accounts",
             joinColumns = @JoinColumn(name = "businessid"),
             inverseJoinColumns = @JoinColumn(name = "accountid"))
@@ -126,4 +127,31 @@ public class Business implements Serializable{
         this.subdomainUri = subdomainUri;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Business business = (Business) o;
+
+        if (enabled != business.enabled) return false;
+        if (!Objects.equals(id, business.id)) return false;
+        if (!Objects.equals(name, business.name)) return false;
+        if (!Objects.equals(subdomainUri, business.subdomainUri))
+            return false;
+        if (!Objects.equals(businessUrl, business.businessUrl))
+            return false;
+        return Objects.equals(accounts, business.accounts);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (subdomainUri != null ? subdomainUri.hashCode() : 0);
+        result = 31 * result + (businessUrl != null ? businessUrl.hashCode() : 0);
+        result = 31 * result + (accounts != null ? accounts.hashCode() : 0);
+        result = 31 * result + (enabled ? 1 : 0);
+        return result;
+    }
 }

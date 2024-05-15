@@ -1,5 +1,6 @@
-package com.o2dent.lib.accounts;
+package com.o2dent.lib.accounts.persistance;
 
+import com.o2dent.lib.accounts.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
