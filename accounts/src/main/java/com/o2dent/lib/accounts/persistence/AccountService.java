@@ -72,6 +72,18 @@ public class AccountService {
     }
 
     /**
+     * @param id
+     * @param b
+     * @param c
+     * @param roles
+     * @return
+     */
+    public List<Account> findAllByAccountBusinessIdAndActiveAndEnabledAndRoles_NameIn(Long id, boolean b, boolean c,
+                                                                                      List<String> roles) {
+        return this.accountRepository.findAllByBusinesses_IdAndActiveAndEnabledAndRoles_NameIn(id, b, c, roles);
+    }
+
+    /**
      *
      * @param email
      * @return
