@@ -2,11 +2,14 @@ package com.o2dent.lib.accounts.persistence;
 
 import com.o2dent.lib.accounts.entity.Account;
 import com.o2dent.lib.accounts.helpers.exceptions.EmailExistsException;
+import com.o2dent.lib.accounts.helpers.exceptions.PhoneNumberExistsException;
 import com.o2dent.lib.accounts.helpers.exceptions.UsernameExistsException;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -102,6 +105,15 @@ public class AccountService {
     }
 
     /**
+     *
+     * @param phone
+     * @return
+     */
+    public boolean phoneNumberExists(Long phone) {
+        return accountRepository.findByPhone(phone).isPresent();
+    }
+
+    /**
      * @param id
      * @param currentBusinessId
      * @return
@@ -131,5 +143,25 @@ public class AccountService {
      */
     public Account createPlain(Account account) {
         return accountRepository.saveAndFlush(account);
+    }
+
+    /**
+     *
+     * @param newAccount
+     * @return
+     * @throws EmailExistsException
+     * @throws UsernameExistsException
+     * @throws PhoneNumberExistsException
+     */
+    public Account create(Account newAccount) throws EmailExistsException, UsernameExistsException, PhoneNumberExistsException {
+        if(Strings.isNotEmpty(newAccount.getEmail()) && emailExists(newAccount.getEmail())) {
+            throw new EmailExistsException();
+        }else if(Strings.isNotEmpty(newAccount.getUsername()) && usernameExists(newAccount.getUsername())) {
+            throw new UsernameExistsException();
+        }else if(Objects.nonNull(newAccount.getPhone()) && phoneNumberExists(newAccount.getPhone())) {
+            throw new PhoneNumberExistsException();
+        }
+
+        return createPlain(newAccount);
     }
 }
