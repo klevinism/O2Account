@@ -8,6 +8,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -134,6 +135,26 @@ public class AccountService {
         }catch(NumberFormatException exception) {
             return this.accountRepository.findByUsernameOrEmail(username, username);
         }
+    }
+
+    /**
+     * @param name
+     * @param surname
+     * @param birthday
+     * @return
+     */
+    public Optional<Account> findByNameAndSurnameAndBirthday(String name, String surname, Date birthday) {
+        return this.accountRepository.findByNameIgnoreCaseAndSurnameIgnoreCaseAndBirthday(name, surname, birthday);
+    }
+
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+    public Optional<Account> findByUsernameOrEmail(String username) {
+        return this.accountRepository.findByUsernameOrEmail(username, username);
     }
 
     /**
