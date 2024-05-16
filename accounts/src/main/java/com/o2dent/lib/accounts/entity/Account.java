@@ -379,22 +379,60 @@ public class Account implements Serializable {
         this.businesses = businesses;
     }
 
+    /**
+     *
+     * @param currentLoggedInBusiness
+     */
+    public void addBusiness(Business currentLoggedInBusiness) {
+        this.businesses.add(currentLoggedInBusiness);
+        currentLoggedInBusiness.getAccounts().add(this);
+    }
+
+    /**
+     *
+     * @return
+     */
     public boolean isAccount() {
         return isAccount;
     }
 
+    /**
+     *
+     * @param isAccount
+     */
     public void setAccount(boolean isAccount) {
         this.isAccount = isAccount;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Role> getRoles() {
         return roles;
     }
 
+    /**
+     *
+     * @param roles
+     */
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
+    /**
+     *
+     * @param role
+     */
+    public void addRole(Role role) {
+        this.roles.add(role);
+        role.getAccounts().add(this);
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Account [id=" + id + ", name=" + name + ", surname=" + surname + ", age=" + age + ", gender=" + gender
@@ -403,6 +441,11 @@ public class Account implements Serializable {
                 + ", country=" + country + ", enabled=" + enabled + ", active=" + active + "]";
     }
 
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

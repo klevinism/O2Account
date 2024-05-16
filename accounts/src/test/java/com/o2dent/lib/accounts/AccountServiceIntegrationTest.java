@@ -2,7 +2,7 @@ package com.o2dent.lib.accounts;
 
 import com.o2dent.lib.accounts.entity.Account;
 import com.o2dent.lib.accounts.entity.Role;
-import com.o2dent.lib.accounts.persistance.AccountService;
+import com.o2dent.lib.accounts.persistence.AccountService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;

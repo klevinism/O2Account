@@ -1,4 +1,4 @@
-package com.o2dent.lib.accounts.persistance;
+package com.o2dent.lib.accounts.persistence;
 
 import com.o2dent.lib.accounts.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
