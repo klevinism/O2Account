@@ -49,14 +49,13 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     public List<Account> findAllByActiveAndEnabledAndRoles_Name(boolean b, boolean c, String name);
 
     /**
+     *
      * @param b
      * @param c
-     * @param beginMonthDate
-     * @param endMonthDate
+     * @param ids
      * @return
      */
-//    public Integer countByEnabledAndActiveAndCustomer_RegisterdateBetween(boolean b, boolean c, Date beginMonthDate,
-//                                                                          Date endMonthDate);
+    public Integer countByEnabledAndActiveAndIdIn(boolean b, boolean c, List<Long> ids);
 
     /**
      * @param email
@@ -82,9 +81,10 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     public Optional<Account> findByIdAndBusinesses_Id(Long id, long currentBusinessId);
 
     /**
+     *
      * @param currentBusinessId
-     * @param b
-     * @param b2
+     * @param enabled
+     * @param active
      * @param name
      * @return
      */
@@ -93,15 +93,15 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
 
     /**
+     *
      * @param currentBusinessId
      * @param enabled
      * @param active
-     * @param beginMonthDate
-     * @param endMonthDate
+     * @param ids
      * @return
      */
-//    public Integer countByBusinesses_IdAndEnabledAndActiveAndCustomer_RegisterdateBetween(Long currentBusinessId,
-//                                                                                          boolean enabled, boolean active, Date beginMonthDate, Date endMonthDate);
+    public Integer countByBusinesses_IdAndEnabledAndActiveAndIdIn(Long currentBusinessId, boolean enabled,
+                                                                  boolean active, List<Long> ids);
 
     /**
      * @param id
