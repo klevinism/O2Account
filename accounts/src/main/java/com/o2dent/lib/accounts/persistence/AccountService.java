@@ -147,6 +147,15 @@ public class AccountService {
         return this.accountRepository.findByNameIgnoreCaseAndSurnameIgnoreCaseAndBirthday(name, surname, birthday);
     }
 
+    /**
+     *
+     * @param account
+     */
+    public void delete(Account account) {
+        accountRepository.delete(account);
+    }
+
+
 
     /**
      *
