@@ -2,7 +2,6 @@ package com.o2dent.lib.accounts.persistence;
 
 import com.o2dent.lib.accounts.entity.Business;
 import com.o2dent.lib.accounts.helpers.exceptions.SubdomainExistsException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.Optional;
 public class BusinessService{
     private final BusinessRepository businessRepository;
 
-    @Autowired
     public BusinessService(BusinessRepository businessRepository) {
         this.businessRepository = businessRepository;
     }

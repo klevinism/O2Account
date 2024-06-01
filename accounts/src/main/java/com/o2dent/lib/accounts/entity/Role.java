@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class Role implements Serializable {
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
-    private List<Account> accounts;
+    private List<Account> accounts = new ArrayList<>();
 
     private String name;
 
@@ -33,8 +34,6 @@ public class Role implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-
     /**
      * @return the name
      */
@@ -55,7 +54,6 @@ public class Role implements Serializable {
     public List<Account> getAccounts() {
         return accounts;
     }
-
     /**
      * @param accounts the accounts to set
      */
@@ -63,6 +61,9 @@ public class Role implements Serializable {
         this.accounts = accounts;
     }
 
+    public void addAccount(Account account){
+        accounts.add(account);
+    }
 
     @Override
     public String toString() {

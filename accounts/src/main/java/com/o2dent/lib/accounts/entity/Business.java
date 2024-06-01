@@ -1,6 +1,7 @@
 package com.o2dent.lib.accounts.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -34,11 +35,11 @@ public class Business implements Serializable{
     private String businessUrl;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "business_accounts",
             joinColumns = @JoinColumn(name = "businessid"),
             inverseJoinColumns = @JoinColumn(name = "accountid"))
-    private Set<Account> accounts;
+    private Set<Account> accounts = new HashSet<>();
 
     private boolean enabled;
 

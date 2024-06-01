@@ -28,7 +28,7 @@ public class Account implements Serializable {
 
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(mappedBy = "accounts", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "accounts", cascade = CascadeType.REFRESH)
     private Set<Business> businesses = new HashSet<Business>();
 
     @NotNull(message = "{alert.fieldEmpty}")
@@ -426,7 +426,6 @@ public class Account implements Serializable {
      */
     public void addRole(Role role) {
         this.roles.add(role);
-        role.getAccounts().add(this);
     }
 
     /**
@@ -475,7 +474,7 @@ public class Account implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = (id != null ? id.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + age;

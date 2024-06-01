@@ -6,6 +6,8 @@ import com.o2dent.lib.accounts.helpers.exceptions.PhoneNumberExistsException;
 import com.o2dent.lib.accounts.helpers.exceptions.UsernameExistsException;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -42,6 +44,26 @@ public class AccountService {
         return this.accountRepository.findAll();
     }
 
+    public Account disable(Account personnel) {
+        personnel.setEnabled(false);
+        return this.accountRepository.saveAndFlush(personnel);
+    }
+
+    public Account disableById(Long id) {
+        Optional<Account> account = this.findById(id);
+        if(account.isPresent()) return this.accountRepository.saveAndFlush(account.get());
+        return null;
+    }
+
+    /**
+     *
+     * @param businessId
+     * @return
+     */
+    public List<Account> findAllByBusinessId(Long businessId) {
+        return this.accountRepository.findAllByBusinesses_Id(businessId);
+    }
+
     /**
      * @param email
      * @return
@@ -75,6 +97,10 @@ public class AccountService {
         return createPlain(newAccount);
     }
 
+    public List<Account> findAllByBusinessIdAndRoles_NameIn(Long businessId, List<String> roleNames) {
+        return this.accountRepository.findAllByBusinesses_IdAndRoles_NameIn(businessId, roleNames);
+    }
+
     /**
      * @param id
      * @param b
@@ -85,6 +111,27 @@ public class AccountService {
     public List<Account> findAllByAccountBusinessIdAndActiveAndEnabledAndRoles_NameIn(Long id, boolean b, boolean c,
                                                                                       List<String> roles) {
         return this.accountRepository.findAllByBusinesses_IdAndActiveAndEnabledAndRoles_NameIn(id, b, c, roles);
+    }
+
+    /**
+     *
+     * @param businessId
+     * @param role
+     * @return
+     */
+    public List<Account> findAllByBusinessIdAndRoles_Name(Long businessId, String role){
+        return this.accountRepository.findAllByBusinesses_IdAndRoles_Name(businessId, role);
+    }
+
+    /**
+     *
+     * @param enabled
+     * @param active
+     * @param role
+     * @return
+     */
+    public List<Account> findAllByEnabledAndActiveAndRoles_Name(boolean enabled, boolean active, String role) {
+        return this.accountRepository.findAllByActiveAndEnabledAndRoles_Name(enabled, active, role);
     }
 
     /**
@@ -145,6 +192,38 @@ public class AccountService {
      */
     public Optional<Account> findByNameAndSurnameAndBirthday(String name, String surname, Date birthday) {
         return this.accountRepository.findByNameIgnoreCaseAndSurnameIgnoreCaseAndBirthday(name, surname, birthday);
+    }
+
+    /**
+     *
+     * @param currentBusinessId
+     * @param enabled
+     * @param active
+     * @param ids
+     * @return
+     */
+    public Integer countByBusinesses_IdAndEnabledAndActiveAndIdIn(Long currentBusinessId, boolean enabled, boolean active, List<Long> ids) {
+        return this.accountRepository.countByBusinesses_IdAndEnabledAndActiveAndIdIn(currentBusinessId, enabled, active, ids);
+    }
+
+    /**
+     *
+     * @param currentBusinessId
+     * @param ids
+     * @return
+     */
+    public List<Account> findByBusinesses_IdAndIdIn(Long currentBusinessId, List<Long> ids) {
+        return this.accountRepository.findByBusinesses_IdAndIdIn(currentBusinessId, ids);
+    }
+    /**
+     *
+     * @param enabled
+     * @param active
+     * @param ids
+     * @return
+     */
+    public Integer countByEnabledAndActiveAndIdIn(boolean enabled, boolean active, List<Long> ids) {
+        return this.accountRepository.countByEnabledAndActiveAndIdIn(enabled, active, ids);
     }
 
     /**
