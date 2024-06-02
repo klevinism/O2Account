@@ -13,13 +13,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ContextConfiguration(classes = {TestConfiguration.class})
 @DataJpaTest
-public class AccountServiceIntegrationTest {
+public class AccountServiceTest {
     @Autowired
     AccountService accountService;
     private Account createDefaultAccount(){

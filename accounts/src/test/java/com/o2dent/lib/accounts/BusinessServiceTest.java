@@ -3,11 +3,9 @@ package com.o2dent.lib.accounts;
 import com.o2dent.lib.accounts.defaults.Defaults;
 import com.o2dent.lib.accounts.entity.Account;
 import com.o2dent.lib.accounts.entity.Business;
-import com.o2dent.lib.accounts.entity.Role;
 import com.o2dent.lib.accounts.helpers.exceptions.SubdomainExistsException;
 import com.o2dent.lib.accounts.persistence.AccountService;
 import com.o2dent.lib.accounts.persistence.BusinessService;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -24,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ContextConfiguration(classes = {TestConfiguration.class})
 @DataJpaTest
-public class BusinessServiceIntegrationTest {
+public class BusinessServiceTest {
     @Autowired
     BusinessService businessService;
     @Autowired
