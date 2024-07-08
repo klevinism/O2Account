@@ -10,7 +10,7 @@
 
     <groupId>com.o2dent.lib</groupId>
     <artifactId>accounts</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>accounts</name>
     <description>accounts</description>
 
@@ -60,11 +60,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
