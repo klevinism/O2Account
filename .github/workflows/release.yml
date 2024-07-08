@@ -31,3 +31,4 @@ jobs:
           script: |
             cd /var/www/dms/o2accounts/
             mvn clean package verify install
+            rm -r /var/www/dms/o2accounts/*
