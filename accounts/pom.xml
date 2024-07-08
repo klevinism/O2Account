@@ -10,7 +10,7 @@
 
     <groupId>com.o2dent.lib</groupId>
     <artifactId>accounts</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>accounts</name>
     <description>accounts</description>
 
@@ -24,7 +24,7 @@
         <url>https://github.com</url>
         <connection>scm:git:https://github.com/klevinism/O2Account.git</connection>
         <developerConnection>scm:git:https://github.com/klevinism/O2Account.git</developerConnection>
-        <tag>accounts-0.0.3</tag>
+        <tag>account-0.0.3-SNAPSHOT</tag>
         <!--  GIT TOKEN 4 klevinism: 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  -->
     </scm>
 
