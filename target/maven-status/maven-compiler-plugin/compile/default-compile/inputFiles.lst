@@ -1,0 +1,14 @@
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/entity/Role.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/persistence/BusinessRepository.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/Configurations.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/helpers/exceptions/PhoneNumberExistsException.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/helpers/validators/ValidURL.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/persistence/AccountService.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/helpers/exceptions/SubdomainExistsException.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/helpers/exceptions/UsernameExistsException.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/helpers/exceptions/EmailExistsException.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/helpers/validators/UrlValidator.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/persistence/AccountRepository.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/persistence/BusinessService.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/entity/Account.java
+/Users/klevin/O2_Account/accounts/src/main/java/com/o2dent/lib/accounts/entity/Business.java
