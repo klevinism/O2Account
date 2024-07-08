@@ -13,18 +13,17 @@ jobs:
       - uses: actions/checkout@master
       - name: Copy repository contents via scp
         uses: appleboy/scp-action@master
-        env:
+        with:
           HOST: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USERNAME }}
           PORT: ${{ secrets.PORT }}
           PASSWORD: ${{ secrets.VMIPASSWORD }}
-        with:
           source: "."
           target: "/var/www/dms/o2accounts/${GITHUB_REF#refs/heads/}"
 
       - name: Executing remote command and deploying
         uses: appleboy/ssh-action@master
-        env:
+        with:
           host: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USERNAME }}
           PORT: ${{ secrets.PORT }}
